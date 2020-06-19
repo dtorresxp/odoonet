@@ -96,9 +96,7 @@ namespace OdooNet.Apps.Services.SyncFin5
 
 				Task.Delay(1000).Wait();
 
-				Log.Logger.Information("done!");
-
-				
+				Log.Logger.Information("done!");				
 			});
 		}
 	}
