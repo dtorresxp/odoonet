@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30002.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{DAFD9FB0-68C8-43DD-831F-399AF2D9235F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{7B5B3901-9720-49F2-A6F4-0636B2EBBB79}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OdooNet.Core", "OdooNet.Core\OdooNet.Core.csproj", "{0AFACD7C-2E7C-4AEC-B647-2D8831910DE9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OdooNet.Data.Client", "OdooNet.Data.Client\OdooNet.Data.Client.csproj", "{113FA588-EB9B-4D9E-8EB3-8B6C0DF6C8A9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Console", "Console", "{7CC154B5-BF08-4953-B64B-67BABDE3F28F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{0A899B38-3158-49FC-BC92-F22C924F8482}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mobile", "Mobile", "{42FC6FFF-1CDC-4D39-88DB-031CF0B30313}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{4B28C95B-4544-4014-BDE4-8322A1EDDFC9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OdooNet.Apps.Console.Demo", "OdooNet.Apps.Console.Demo\OdooNet.Apps.Console.Demo.csproj", "{C8F20212-6324-432B-9924-9287D98A5734}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OdooNet.Apps.Services.SyncFinanca", "OdooNet.Apps.Services.SyncFinanca\OdooNet.Apps.Services.SyncFinanca.csproj", "{92B0766B-3AAF-412D-851F-36B38E8D24BC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0AFACD7C-2E7C-4AEC-B647-2D8831910DE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AFACD7C-2E7C-4AEC-B647-2D8831910DE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AFACD7C-2E7C-4AEC-B647-2D8831910DE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AFACD7C-2E7C-4AEC-B647-2D8831910DE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{113FA588-EB9B-4D9E-8EB3-8B6C0DF6C8A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{113FA588-EB9B-4D9E-8EB3-8B6C0DF6C8A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{113FA588-EB9B-4D9E-8EB3-8B6C0DF6C8A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{113FA588-EB9B-4D9E-8EB3-8B6C0DF6C8A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8F20212-6324-432B-9924-9287D98A5734}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8F20212-6324-432B-9924-9287D98A5734}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8F20212-6324-432B-9924-9287D98A5734}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8F20212-6324-432B-9924-9287D98A5734}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92B0766B-3AAF-412D-851F-36B38E8D24BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92B0766B-3AAF-412D-851F-36B38E8D24BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92B0766B-3AAF-412D-851F-36B38E8D24BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92B0766B-3AAF-412D-851F-36B38E8D24BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{113FA588-EB9B-4D9E-8EB3-8B6C0DF6C8A9} = {7B5B3901-9720-49F2-A6F4-0636B2EBBB79}
+		{7CC154B5-BF08-4953-B64B-67BABDE3F28F} = {DAFD9FB0-68C8-43DD-831F-399AF2D9235F}
+		{0A899B38-3158-49FC-BC92-F22C924F8482} = {DAFD9FB0-68C8-43DD-831F-399AF2D9235F}
+		{42FC6FFF-1CDC-4D39-88DB-031CF0B30313} = {DAFD9FB0-68C8-43DD-831F-399AF2D9235F}
+		{4B28C95B-4544-4014-BDE4-8322A1EDDFC9} = {DAFD9FB0-68C8-43DD-831F-399AF2D9235F}
+		{C8F20212-6324-432B-9924-9287D98A5734} = {7CC154B5-BF08-4953-B64B-67BABDE3F28F}
+		{92B0766B-3AAF-412D-851F-36B38E8D24BC} = {4B28C95B-4544-4014-BDE4-8322A1EDDFC9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E200AB5F-51C7-4FBE-95E1-1469FC70C5B4}
+	EndGlobalSection
+EndGlobal

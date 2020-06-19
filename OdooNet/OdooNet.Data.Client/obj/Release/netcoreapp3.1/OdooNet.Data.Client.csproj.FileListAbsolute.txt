@@ -1,0 +1,9 @@
+D:\github\odoo\OdooNet\OdooNet.Data.Client\bin\Release\netcoreapp3.1\OdooNet.Data.Client.deps.json
+D:\github\odoo\OdooNet\OdooNet.Data.Client\bin\Release\netcoreapp3.1\OdooNet.Data.Client.dll
+D:\github\odoo\OdooNet\OdooNet.Data.Client\bin\Release\netcoreapp3.1\OdooNet.Data.Client.pdb
+D:\github\odoo\OdooNet\OdooNet.Data.Client\obj\Release\netcoreapp3.1\OdooNet.Data.Client.csprojAssemblyReference.cache
+D:\github\odoo\OdooNet\OdooNet.Data.Client\obj\Release\netcoreapp3.1\OdooNet.Data.Client.csproj.CoreCompileInputs.cache
+D:\github\odoo\OdooNet\OdooNet.Data.Client\obj\Release\netcoreapp3.1\OdooNet.Data.Client.AssemblyInfoInputs.cache
+D:\github\odoo\OdooNet\OdooNet.Data.Client\obj\Release\netcoreapp3.1\OdooNet.Data.Client.AssemblyInfo.cs
+D:\github\odoo\OdooNet\OdooNet.Data.Client\obj\Release\netcoreapp3.1\OdooNet.Data.Client.dll
+D:\github\odoo\OdooNet\OdooNet.Data.Client\obj\Release\netcoreapp3.1\OdooNet.Data.Client.pdb
