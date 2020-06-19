@@ -1,8 +1,0 @@
-D:\github\odoo\OdooNet\OdooNet.Core\bin\Debug\netcoreapp3.1\OdooNet.Core.deps.json
-D:\github\odoo\OdooNet\OdooNet.Core\bin\Debug\netcoreapp3.1\OdooNet.Core.dll
-D:\github\odoo\OdooNet\OdooNet.Core\bin\Debug\netcoreapp3.1\OdooNet.Core.pdb
-D:\github\odoo\OdooNet\OdooNet.Core\obj\Debug\netcoreapp3.1\OdooNet.Core.csproj.CoreCompileInputs.cache
-D:\github\odoo\OdooNet\OdooNet.Core\obj\Debug\netcoreapp3.1\OdooNet.Core.AssemblyInfoInputs.cache
-D:\github\odoo\OdooNet\OdooNet.Core\obj\Debug\netcoreapp3.1\OdooNet.Core.AssemblyInfo.cs
-D:\github\odoo\OdooNet\OdooNet.Core\obj\Debug\netcoreapp3.1\OdooNet.Core.dll
-D:\github\odoo\OdooNet\OdooNet.Core\obj\Debug\netcoreapp3.1\OdooNet.Core.pdb
