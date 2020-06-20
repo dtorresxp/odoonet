@@ -27,6 +27,8 @@ namespace OdooNet.Apps.Services.SyncFin5
 				.WriteTo.File(@".\log.txt", flushToDiskInterval: TimeSpan.FromSeconds(5), rollOnFileSizeLimit: true, fileSizeLimitBytes: 500000000)		
 				.CreateLogger();
 
+
+
 			var exitCode = HostFactory.Run(x =>
 			{
 				x.UseSerilog();
