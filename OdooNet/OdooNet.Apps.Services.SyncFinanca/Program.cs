@@ -1,6 +1,7 @@
 ﻿
 using Serilog;
 using System;
+using System.Diagnostics;
 using Topshelf;
 
 namespace OdooNet.Apps.Services.SyncFin5
@@ -13,10 +14,17 @@ namespace OdooNet.Apps.Services.SyncFin5
 		
 		public static void Main(string[] args)
 		{
+			if (Debugger.IsAttached)
+			{
+				SyncFinanca.Properties.Settings.Default.LAST_SYNC_ORDER_DATE = new DateTime(2020, 06, 20, 06, 00, 00);
+				SyncFinanca.Properties.Settings.Default.Save();
+			}
+
 			Log.Logger = new LoggerConfiguration()
 				.MinimumLevel.Debug()
 				.Enrich.FromLogContext()
-				.WriteTo.File(@".\log.txt", flushToDiskInterval: TimeSpan.FromSeconds(5), rollOnFileSizeLimit: true, fileSizeLimitBytes: 500000000)
+				.WriteTo.Console()
+				.WriteTo.File(@".\log.txt", flushToDiskInterval: TimeSpan.FromSeconds(5), rollOnFileSizeLimit: true, fileSizeLimitBytes: 500000000)		
 				.CreateLogger();
 
 			var exitCode = HostFactory.Run(x =>

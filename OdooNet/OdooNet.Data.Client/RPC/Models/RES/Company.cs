@@ -14,20 +14,7 @@ namespace OdooNet.Data.Client.RPC.Models.RES
 	public class Company : Base, ICompany
 	{
 		public static string MODEL = "res.company";
-		public static string[] FIELDS = new string[]
-		{
-			"id",
-			"name",
-			"phone",
-			"email",
-			"website",
-			"street",
-			"street2",
-			"zip",
-			"city",
-			"state_id",
-			"country_id"
-		};
+
 
 
 		[JsonProperty("phone")]
@@ -59,9 +46,18 @@ namespace OdooNet.Data.Client.RPC.Models.RES
 
 		public string Address => $"{this.Street}, {this.Street2}, {this.City}, {this.StateId.SelectToken("[0]")}, {this.CountryId.SelectToken("[0]")}";
 
-		public Terminal GetTerminal(int id) => this.OdooRpcClient.GetTerminal(companyId: this.Id, terminalId: id);
-		public Terminal GetTerminal(string name) => this.OdooRpcClient.GetTerminal(companyId: this.Id, terminalName: name); 
-		public Terminal[] GetTerminals() => this.OdooRpcClient.GetTerminals(this.Id);
+
+
+
+
+		public IProduct[] GetProducts() => this.OdooRpcClient.GetProducts();
+
+		public ICustomer[] GetCustomers() => throw new NotImplementedException();
+
+
+		public ITerminal GetTerminal(int id) => this.OdooRpcClient.GetTerminal(companyId: this.Id, terminalId: id);
+		public ITerminal GetTerminal(string name) => this.OdooRpcClient.GetTerminal(companyId: this.Id, terminalName: name); 
+		public ITerminal[] GetTerminals() => this.OdooRpcClient.GetTerminals(this.Id);
 
 
 		public IOrder[] GetOrders(DateTime createdAfter)
@@ -69,5 +65,8 @@ namespace OdooNet.Data.Client.RPC.Models.RES
 		public IOrder[] GetOrders(DateTime createdAfter, DateTime createdBefore) 
 			=> this.OdooRpcClient.GetPosOrders(companyId: this.Id, createdAfter: createdAfter, createdBefore: createdBefore);
 
+		ITerminal[] ICompany.GetTerminals() => this.OdooRpcClient.GetTerminals(companyId: this.Id);
+
+		
 	}
 }

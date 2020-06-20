@@ -26,12 +26,12 @@ namespace OdooNet.Apps.Services.SyncFinanca.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("2020-06-01")]
-        public global::System.DateTime LAST_EXEC_TIME {
+        public global::System.DateTime LAST_SYNC_ORDER_DATE {
             get {
-                return ((global::System.DateTime)(this["LAST_EXEC_TIME"]));
+                return ((global::System.DateTime)(this["LAST_SYNC_ORDER_DATE"]));
             }
             set {
-                this["LAST_EXEC_TIME"] = value;
+                this["LAST_SYNC_ORDER_DATE"] = value;
             }
         }
     }

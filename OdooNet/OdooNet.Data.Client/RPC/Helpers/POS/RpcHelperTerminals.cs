@@ -19,13 +19,7 @@ namespace OdooNet.Data.Client.RPC.Helpers.POS
 				.Filter("id", "=", terminalId);
 
 
-			Task<Terminal[]> task = odooRpcClient.Get<Terminal[]>(
-				new OdooSearchParameters(
-						Terminal.MODEL,
-						filter
-				),
-				new OdooFieldParameters(OrderLine.FIELDS)
-			);
+			Task<Terminal[]> task = odooRpcClient.Get<Terminal[]>(new OdooSearchParameters(Terminal.MODEL, filter));
 
 			task.Wait();
 
@@ -45,13 +39,7 @@ namespace OdooNet.Data.Client.RPC.Helpers.POS
 				.Filter("display_name", "=", terminalName);
 
 
-			Task<Terminal[]> task = odooRpcClient.Get<Terminal[]>(
-				new OdooSearchParameters(
-						Terminal.MODEL,
-						filter
-				),
-				new OdooFieldParameters(Terminal.FIELDS)
-			);
+			Task<Terminal[]> task = odooRpcClient.Get<Terminal[]>(new OdooSearchParameters(Terminal.MODEL, filter));
 
 			task.Wait();
 
@@ -68,14 +56,9 @@ namespace OdooNet.Data.Client.RPC.Helpers.POS
 		{
 			OdooDomainFilter filter = new OdooDomainFilter().Filter("company_id", "=", companyId);
 
+			Task<Terminal[]> task = odooRpcClient.Get<Terminal[]>(new OdooSearchParameters(Terminal.MODEL, filter));
 
-			Task<Terminal[]> task = odooRpcClient.Get<Terminal[]>(
-				new OdooSearchParameters(
-						Terminal.MODEL,
-						filter
-				),
-				new OdooFieldParameters(OrderLine.FIELDS)
-			);
+			task.Wait();
 
 			List<Terminal> terminals = task.Result.ToList();
 			terminals.ForEach(terminal => terminal.OdooRpcClient = odooRpcClient);

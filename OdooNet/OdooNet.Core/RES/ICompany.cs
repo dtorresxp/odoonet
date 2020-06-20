@@ -14,6 +14,12 @@ namespace OdooNet.Core.RES
 		public string Email { get; }
 		public string Website { get; }
 
+		public IProduct[] GetProducts();
+
+		public ITerminal[] GetTerminals();
+
+		public ICustomer[] GetCustomers();
+
 		public IOrder[] GetOrders(DateTime createdAfter);
 		public IOrder[] GetOrders(DateTime createdAfter, DateTime createdBefore);
 	}

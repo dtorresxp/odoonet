@@ -11,11 +11,10 @@ namespace OdooNet.Core.POS
 		public DateTime Date { get; }
 		public string Reference { get; }
 		public PosOrderState State { get; }
-		public (long id, string name) Location { get; }
-		public (long id, string name) User { get; }
-		public (long id, string name) Partner { get; }
-		public (long id, string name) Currency { get; }
-		public decimal CurrencyRate { get; }
+		public (long Id, string Name) Location { get; }
+		public (long Id, string Name) User { get; }
+		public (long Id, string Name) Partner { get; }
+		public (long Id, string Name, decimal Rate) Currency { get; }
 		public decimal TaxValue { get; }
 		public decimal TotalValue { get; }
 		public decimal PaidValue { get; }
@@ -28,8 +27,8 @@ namespace OdooNet.Core.POS
 
 	public interface IOrderLine
 	{
-		public (long id, string name) Product { get; }
-		public (long id, string name) Unit { get; }
+		public (long Id, string Name, string Code) Product { get; }
+		public (long Id, string Name) Unit { get; }
 		public decimal Quantity { get; }
 		public decimal Price { get; }
 		public decimal DiscountRate { get; }

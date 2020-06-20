@@ -21,8 +21,7 @@ namespace OdooNet.Data.Client.RPC.Helpers.RES
 				new OdooSearchParameters(
 					model: Company.MODEL,
 					domainFilter: new OdooDomainFilter().Filter("id", "=", id)
-				),
-				new OdooFieldParameters(Company.FIELDS)
+				)
 			);
 
 			task.Wait();
@@ -39,8 +38,7 @@ namespace OdooNet.Data.Client.RPC.Helpers.RES
 				new OdooSearchParameters(
 					model: Company.MODEL,
 					domainFilter: new OdooDomainFilter().Filter("name", "=", name)
-				),
-				new OdooFieldParameters(Company.FIELDS)
+				)
 			);
 
 			task.Wait();
@@ -53,13 +51,7 @@ namespace OdooNet.Data.Client.RPC.Helpers.RES
 
 		public static Company[] GetCompanies(this OdooRpcClient odooRpcClient)
 		{
-			Task<Company[]> task = odooRpcClient.Get<Company[]>(
-				new OdooSearchParameters(
-					model: Company.MODEL,
-					domainFilter: new OdooDomainFilter()
-				),
-				new OdooFieldParameters(Company.FIELDS)
-			);
+			Task<Company[]> task = odooRpcClient.Get<Company[]>(new OdooSearchParameters(model: Company.MODEL));
 
 			task.Wait();
 

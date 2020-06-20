@@ -61,7 +61,7 @@ namespace OdooNet.Apps.Services.SyncFinanca.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to COM001.
         /// </summary>
         internal static string FIN5_DATABASE {
             get {
@@ -70,7 +70,7 @@ namespace OdooNet.Apps.Services.SyncFinanca.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to .\SQL2012.
         /// </summary>
         internal static string FIN5_HOSTNAME {
             get {
@@ -88,7 +88,7 @@ namespace OdooNet.Apps.Services.SyncFinanca.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to sa.
         /// </summary>
         internal static string FIN5_USERNAME {
             get {
@@ -133,7 +133,7 @@ namespace OdooNet.Apps.Services.SyncFinanca.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xmlrpc@redis-stock.com.
+        ///   Looks up a localized string similar to GCPVO3K385783XFO.
         /// </summary>
         internal static string ODOO_PASSWORD {
             get {

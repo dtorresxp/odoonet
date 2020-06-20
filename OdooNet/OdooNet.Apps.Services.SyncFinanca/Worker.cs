@@ -1,9 +1,13 @@
-﻿using OdooNet.Core.POS;
+﻿using OdooNet.Apps.Services.SyncFin5.FIN5;
+using OdooNet.Apps.Services.SyncFinanca.FIN5.Helpers;
+using OdooNet.Core.POS;
 using OdooNet.Core.RES;
 using OdooNet.Data.Client;
 using Serilog;
+using Serilog.Events;
 using System;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Timers;
 
@@ -15,7 +19,7 @@ namespace OdooNet.Apps.Services.SyncFin5
 
 		public Worker()
 		{
-			this.timer = new Timer(1000)
+			this.timer = new Timer(5000)
 			{
 				AutoReset = true
 			};
@@ -25,12 +29,14 @@ namespace OdooNet.Apps.Services.SyncFin5
 
 		public ICompany Company { get; private set; }
 
-		public DateTime LastExecution 
+		public SqlFin5 SqlFin5 { get; private set; }
+
+		public DateTime LastSyncOrderDate 
 		{
-			get => SyncFinanca.Properties.Settings.Default.LAST_EXEC_TIME;
+			get => SyncFinanca.Properties.Settings.Default.LAST_SYNC_ORDER_DATE;
 			private set
 			{
-				SyncFinanca.Properties.Settings.Default.LAST_EXEC_TIME = value;
+				SyncFinanca.Properties.Settings.Default.LAST_SYNC_ORDER_DATE = value;
 				SyncFinanca.Properties.Settings.Default.Save();
 			}
 		}
@@ -51,6 +57,13 @@ namespace OdooNet.Apps.Services.SyncFin5
 				password: SyncFinanca.Properties.Resources.ODOO_PASSWORD
 			).GetCompany(SyncFinanca.Properties.Resources.ODOO_COMPANY);
 
+			this.SqlFin5 = new SqlFin5(
+				SyncFinanca.Properties.Resources.FIN5_HOSTNAME,
+				SyncFinanca.Properties.Resources.FIN5_DATABASE,
+				SyncFinanca.Properties.Resources.FIN5_USERNAME,
+				SyncFinanca.Properties.Resources.FIN5_PASSWORD
+			);
+
 			this.timer.Start();
 		}
 
@@ -66,27 +79,13 @@ namespace OdooNet.Apps.Services.SyncFin5
 			//stop timer
 			this.timer.Stop();
 
-			//read data from source created after the last execution
-			Log.Logger.Information($"Reading orders created after {this.LastExecution} ...");
+			//this.SyncProducts();
 
-			var orders = this.Company.GetOrders(createdAfter: this.LastExecution);
-
-			Log.Logger.Information($" found {orders.Length} orders.");
-
-
-			//saving current datetime time
-			if (orders.Length > 0)
-			{
-				this.LastExecution = orders.Select(order => order.Created).Max().AddSeconds(1);
-
-				//write data to target
-				this.WriteOrdersToTarget(orders);
-			}
-
+			this.SyncOrders();
+			
 			//start timer
 			this.timer.Start();
 		}
-
 
 		private void WriteOrdersToTarget(IOrder[] orders)
 		{
@@ -98,6 +97,45 @@ namespace OdooNet.Apps.Services.SyncFin5
 
 				Log.Logger.Information("done!");				
 			});
+		}
+
+
+
+		private void SyncProducts()
+		{
+			if (this.Company != null)
+			{
+				IProduct[] products = this.Company.GetProducts();
+
+				foreach (IProduct product in products)
+				{
+					this.SqlFin5.Add(product);
+				}
+				
+			}
+		}
+
+
+
+		private void SyncOrders()
+		{
+			if (this.Company != null)
+			{
+				foreach (IOrder order in this.Company.GetOrders(createdAfter: this.LastSyncOrderDate))
+				{
+					Log.Logger.Information($"Storing order {order.Reference} to SQL Financa 5.");
+
+					this.SqlFin5.Add(order);
+
+					if (this.LastSyncOrderDate < order.Created)
+					{
+						this.LastSyncOrderDate = order.Created.AddSeconds(1);
+
+						Log.Logger.Information($"Create date flag setted to {this.LastSyncOrderDate}");
+					}
+				}
+			}
+
 		}
 	}
 }

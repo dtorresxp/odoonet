@@ -32,10 +32,7 @@ namespace OdooNet.Data.Client.RPC.Helpers.POS
 				filter = filter.Filter("stop_at", "<", closedBefore.Value);
 
 
-			Task<Session[]> task = odooRpcClient.Get<Session[]>(
-					new OdooSearchParameters(Session.MODEL, filter),
-					new OdooFieldParameters(Session.FIELDS)
-				);
+			Task<Session[]> task = odooRpcClient.Get<Session[]>(new OdooSearchParameters(Session.MODEL, filter));
 
 			task.Wait();
 

@@ -1,4 +1,6 @@
-﻿using OdooNet.Data.Client.RPC.Models.POS;
+﻿using Newtonsoft.Json.Linq;
+using OdooNet.Data.Client.RPC.Models;
+using OdooNet.Data.Client.RPC.Models.POS;
 using OdooRpc.CoreCLR.Client;
 using OdooRpc.CoreCLR.Client.Models;
 using OdooRpc.CoreCLR.Client.Models.Parameters;
@@ -12,9 +14,9 @@ namespace OdooNet.Data.Client.RPC.Helpers.POS
 {
 	public static class RpcHelperOrders
 	{
-		public static Order[] GetPosOrders(this OdooRpcClient odooRpcClient, long? companyId = null, long? terminalId = null,long? sessionId = null, DateTime? createdAfter = null, DateTime? createdBefore = null)
+		public static Order[] GetPosOrders(this OdooRpcClient odooRpcClient, long? companyId = null, long? terminalId = null, long? sessionId = null, DateTime? createdAfter = null, DateTime? createdBefore = null)
 		{
-			OdooDomainFilter filter = new OdooDomainFilter().Filter("company_id", "=", companyId);
+			OdooDomainFilter filter = new OdooDomainFilter();
 
 			if (companyId.HasValue)
 				filter = filter.Filter("company_id", "=", companyId.Value);
@@ -27,13 +29,11 @@ namespace OdooNet.Data.Client.RPC.Helpers.POS
 			if (createdBefore.HasValue)
 				filter = filter.Filter("create_date", "<", createdBefore.Value);
 
-			Task<Order[]> task = odooRpcClient.Get<Order[]>(
-					new OdooSearchParameters(
-						model: Order.MODEL,
-						domainFilter: filter
-					),
-					new OdooFieldParameters(Order.FIELDS)
-				);
+			Task<JObject[]> task1 = odooRpcClient.Get<JObject[]>(new OdooSearchParameters(model: Order.MODEL, domainFilter: filter));
+
+			task1.Wait();
+
+			Task<Order[]> task = odooRpcClient.Get<Order[]>(new OdooSearchParameters(model: Order.MODEL, domainFilter: filter));
 
 			task.Wait();
 
@@ -46,20 +46,23 @@ namespace OdooNet.Data.Client.RPC.Helpers.POS
 
 		public static OrderLine[] GetPosOrderLines(this OdooRpcClient odooRpcClient, long orderId)
 		{
+			
 			OdooDomainFilter filter = new OdooDomainFilter().Filter("order_id", "=", orderId);
 
-			Task<OrderLine[]> task = odooRpcClient.Get<OrderLine[]>(
-					new OdooSearchParameters(
-						OrderLine.MODEL,
-						filter
-					),
-					new OdooFieldParameters(OrderLine.FIELDS)
-				);
+			Task<JObject[]> task1 = odooRpcClient.Get<JObject[]>(new OdooSearchParameters(OrderLine.MODEL, filter));
+
+			task1.Wait();
+
+			Task<OrderLine[]> task = odooRpcClient.Get<OrderLine[]>(new OdooSearchParameters(OrderLine.MODEL,filter));
 
 			task.Wait();
 
 			List<OrderLine> posOrderLines = task.Result.ToList();
-			posOrderLines.ForEach(posOrderLine => posOrderLine.OdooRpcClient = odooRpcClient);
+
+			posOrderLines.ForEach(posOrderLine =>
+			{
+				posOrderLine.OdooRpcClient = odooRpcClient;
+			});
 
 			return posOrderLines.ToArray();
 		}

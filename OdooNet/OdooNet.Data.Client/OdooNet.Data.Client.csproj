@@ -6,10 +6,15 @@
 
   <ItemGroup>
     <PackageReference Include="OdooRpc.CoreCLR.Client.V2" Version="2.0.0" />
+    <PackageReference Include="Serilog" Version="2.9.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\OdooNet.Core\OdooNet.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="RPC\Models\Products\" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
+using OdooNet.Core.POS;
 using OdooNet.Data.Client.RPC.Helpers.POS;
 using OdooRpc.CoreCLR.Client;
 using System;
@@ -10,24 +11,14 @@ using System.Text;
 
 namespace OdooNet.Data.Client.RPC.Models.POS
 {
-	public class Session : Base
+	public class Session : Base, ISession
 	{
 		public static string MODEL = "pos.session";
-		public static string[] FIELDS = new string[]
-		{
-			"id",
-			"name",
-			"user_id",
-			"order_count",
-			"total_payments_amount",
-			"state",
-			"start_at",
-			"stop_at",
-			"order_ids"
-		};
 
 		[JsonProperty("user_id")]
 		public JToken UserId { get; set; }
+
+		public (long Id, string Name) User => (this.UserId.SelectToken("0").Value<long>(), this.UserId.SelectToken("1").Value<string>());
 
 		[JsonProperty("order_count")]
 		public int OrderCount { get; set; }
@@ -46,29 +37,6 @@ namespace OdooNet.Data.Client.RPC.Models.POS
 
 		public DateTime? Closed => this.State == SessionState.CLOSED ? this.StopAt.Value<DateTime?>() : null;
 
-		[JsonProperty("order_ids")]
-		public JToken OrderIds { get; set; }
-
-
-
-		public Order[] GetPosOrders() => this.OdooRpcClient.GetPosOrders(sessionId: this.Id);
-	}
-
-	public enum SessionState
-	{
-		[EnumMember(Value = "new_session")]
-		NEW,
-
-		[EnumMember(Value = "opening_control")]
-		OPENING,
-
-		[EnumMember(Value = "opened")]
-		OPENED,
-
-		[EnumMember(Value = "closing_control")]
-		CLOSING,
-
-		[EnumMember(Value = "closed")]
-		CLOSED
+		public IOrder[] GetPosOrders() => this.OdooRpcClient.GetPosOrders(sessionId: this.Id);
 	}
 }
