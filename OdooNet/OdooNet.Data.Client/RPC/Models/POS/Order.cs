@@ -20,7 +20,9 @@ namespace OdooNet.Data.Client.RPC.Models.POS
 		public string Number { get; set; }
 
 		[JsonProperty("date_order")]
-		public DateTime Date { get; set; }
+		public DateTime DateOrderUTC { get; set; }
+
+		public DateTime Date => this.DateOrderUTC.ToLocalTime();
 
 		[JsonProperty("pos_reference")]
 		public string Reference { get; set; }

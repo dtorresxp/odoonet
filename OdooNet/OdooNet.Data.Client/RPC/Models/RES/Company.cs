@@ -51,6 +51,7 @@ namespace OdooNet.Data.Client.RPC.Models.RES
 
 
 		public IProduct[] GetProducts() => this.OdooRpcClient.GetProducts();
+		public IProduct[] GetProducts(DateTime createdAfter) => this.OdooRpcClient.GetProducts(createdAfter: createdAfter);
 
 		public ICustomer[] GetCustomers() => throw new NotImplementedException();
 

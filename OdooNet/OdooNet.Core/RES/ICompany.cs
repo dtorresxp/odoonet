@@ -15,6 +15,7 @@ namespace OdooNet.Core.RES
 		public string Website { get; }
 
 		public IProduct[] GetProducts();
+		public IProduct[] GetProducts(DateTime createdAfter);
 
 		public ITerminal[] GetTerminals();
 

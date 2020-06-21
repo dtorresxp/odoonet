@@ -14,11 +14,12 @@ namespace OdooNet.Apps.Services.SyncFin5
 		
 		public static void Main(string[] args)
 		{
-			if (Debugger.IsAttached)
-			{
-				SyncFinanca.Properties.Settings.Default.LAST_SYNC_ORDER_DATE = new DateTime(2020, 06, 20, 06, 00, 00);
-				SyncFinanca.Properties.Settings.Default.Save();
-			}
+			//if (Debugger.IsAttached)
+			//{
+			//	SyncFinanca.Properties.Settings.Default.LAST_SYNC_ORDER_DATE = new DateTime(2020, 01, 01, 00, 00, 00);
+			//	SyncFinanca.Properties.Settings.Default.LAST_SYNC_PRODUCT_DATE = new DateTime(2020, 01, 01, 00, 00, 00);
+			//	SyncFinanca.Properties.Settings.Default.Save();
+			//}
 
 			Log.Logger = new LoggerConfiguration()
 				.MinimumLevel.Debug()

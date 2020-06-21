@@ -19,7 +19,7 @@ namespace OdooNet.Apps.Services.SyncFin5
 
 		public Worker()
 		{
-			this.timer = new Timer(5000)
+			this.timer = new Timer(SyncFinanca.Properties.Settings.Default.SYNC_EXEC_TIME_DELAY)
 			{
 				AutoReset = true
 			};
@@ -31,7 +31,18 @@ namespace OdooNet.Apps.Services.SyncFin5
 
 		public SqlFin5 SqlFin5 { get; private set; }
 
-		public DateTime LastSyncOrderDate 
+
+		public DateTime LastSyncProductDate
+		{
+			get => SyncFinanca.Properties.Settings.Default.LAST_SYNC_ORDER_DATE;
+			private set
+			{
+				SyncFinanca.Properties.Settings.Default.LAST_SYNC_ORDER_DATE = value;
+				SyncFinanca.Properties.Settings.Default.Save();
+			}
+		}
+
+		public DateTime LastSyncOrderDate
 		{
 			get => SyncFinanca.Properties.Settings.Default.LAST_SYNC_ORDER_DATE;
 			private set
@@ -43,7 +54,11 @@ namespace OdooNet.Apps.Services.SyncFin5
 
 		private void Timer_Elapsed(object sender, ElapsedEventArgs e)
 		{
+			this.timer.Stop();
+
 			this.Execute();
+
+			this.timer.Start();
 		}
 
 		public void Start()
@@ -76,40 +91,27 @@ namespace OdooNet.Apps.Services.SyncFin5
 
 		public void Execute()
 		{
-			//stop timer
-			this.timer.Stop();
-
-			//this.SyncProducts();
-
+			this.SyncProducts();
 			this.SyncOrders();
-			
-			//start timer
-			this.timer.Start();
 		}
-
-		private void WriteOrdersToTarget(IOrder[] orders)
-		{
-			orders.ToList().ForEach(order =>
-			{
-				Log.Logger.Information($"Saving order {order.Reference} to Financa 5 database...");
-
-				Task.Delay(1000).Wait();
-
-				Log.Logger.Information("done!");				
-			});
-		}
-
 
 
 		private void SyncProducts()
 		{
 			if (this.Company != null)
 			{
-				IProduct[] products = this.Company.GetProducts();
+				IProduct[] products = this.Company.GetProducts(createdAfter: this.LastSyncProductDate);
+
+				Log.Logger.Information($"Found {products.Count()} products in Odoo created after {this.LastSyncProductDate}.");
 
 				foreach (IProduct product in products)
 				{
 					this.SqlFin5.Add(product);
+
+					if (this.LastSyncOrderDate < product.Created)
+					{
+						this.LastSyncProductDate = product.Created.AddSeconds(1);
+					}
 				}
 				
 			}
@@ -121,17 +123,18 @@ namespace OdooNet.Apps.Services.SyncFin5
 		{
 			if (this.Company != null)
 			{
+				IOrder[] orders = this.Company.GetOrders(createdAfter: this.LastSyncOrderDate);
+
+				Log.Logger.Information($"Found {orders.Count()} orders in Odoo created after {this.LastSyncOrderDate}.");
+
+
 				foreach (IOrder order in this.Company.GetOrders(createdAfter: this.LastSyncOrderDate))
 				{
-					Log.Logger.Information($"Storing order {order.Reference} to SQL Financa 5.");
-
 					this.SqlFin5.Add(order);
 
 					if (this.LastSyncOrderDate < order.Created)
 					{
 						this.LastSyncOrderDate = order.Created.AddSeconds(1);
-
-						Log.Logger.Information($"Create date flag setted to {this.LastSyncOrderDate}");
 					}
 				}
 			}
